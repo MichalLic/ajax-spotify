@@ -8,31 +8,31 @@ var SpotifyApp = {
 //    variables
 
 
-
-
 //    init
     init: function () {
-        SpotifyApp.getAlbums();
+        //SpotifyApp.getAlbums();
         SpotifyApp.sendValue();
     },
 
 
 //    function
-    getAlbums: function () {
-        $.ajax({
-            url: 'https://api.spotify.com/v1/albums/382ObEPsp2rxGrnsizN5TX',
-            method: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                SpotifyApp.drawAlbums(response);
-                console.log(response);
-            },
-            error: function () {
-                console.log("Getting data error!")
-            }
-        });
-        // @todo dupa
-    },
+
+    //getAlbums: function () {
+    //    $.ajax({
+    //        url: 'https://api.spotify.com/v1/albums/382ObEPsp2rxGrnsizN5TX',
+    //        method: 'GET',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            SpotifyApp.drawAlbums(response);
+    //            console.log(response);
+    //        },
+    //        error: function () {
+    //            console.log("Getting data error!")
+    //        }
+    //    });
+    //    // @todo dupa
+    //},
+    // get first album
 
     showSearchingData: function (inputValue) {
         $.ajax({
@@ -40,6 +40,7 @@ var SpotifyApp = {
             method: 'GET',
             dataType: 'json',
             success: function (response) {
+                SpotifyApp.drawSearchData(response);
                 console.log(inputValue);
                 console.log(response);
             },
@@ -62,35 +63,38 @@ var SpotifyApp = {
     //    $(".album").prepend(template);
     //},
 
-    drawAlbums: function (data) {
+    drawSearchData: function (data) {
+        var section = "";
         var block = "";
-        block += "<div class='album-detail'>";
-        block += "<div class='artist'>" + data.artists["0"].name + "</div>";
-        //block += "<div class='img'>" + data.images["2"].url + "</div>";
-        block += "<div class='label'>" + data.label + "</div>";
-        block += "<div class='name'>" + data.name + "</div>";
-        block += "<div>" + data.release_date + "</div>";
-        block += "<div class='popularity'>" + data.popularity + "</div>";
-        block += "<div class='track'>" + data.tracks.items["0"].track_number + data.tracks.items["0"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["1"].track_number + data.tracks.items["1"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["2"].track_number + data.tracks.items["2"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["3"].track_number + data.tracks.items["3"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["4"].track_number + data.tracks.items["4"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["5"].track_number + data.tracks.items["5"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["6"].track_number + data.tracks.items["6"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["7"].track_number + data.tracks.items["7"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["8"].track_number + data.tracks.items["8"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["9"].track_number + data.tracks.items["9"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["10"].track_number + data.tracks.items["10"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["11"].track_number + data.tracks.items["11"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["12"].track_number + data.tracks.items["12"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["13"].track_number + data.tracks.items["13"].name + "</div>";
-        block += "<div class='track'>" + data.tracks.items["14"].track_number + data.tracks.items["14"].name + "</div>";
-
-        block += "</div>";
-
-        $(".album").prepend(block);
+        for (i = 0; i < data.albums.items.length; i++ ){
+            section += "<div class='album-name'>" + data.albums.items[i].name + "</div>";
+        }
+        for(i = 0; i < data.tracks.items.length; i++ ){
+            block += "<div class='album-track'>"+ data.tracks.items[i].name + "</div>"
+        }
+        $(".section").append(section);
+        $(".section").append(block);
     }
+
+    //drawAlbum function
+
+    //drawAlbums: function (data) {
+    //    var block = "";
+    //    var blockTrack = "";
+    //    block += "<div class='album-detail'>";
+    //    block += "<div class='artist'>" + data.artists["0"].name + "</div>";
+    //    //block += "<div class='img'>" + data.images["2"].url + "</div>";
+    //    block += "<div class='label'>" + data.label + "</div>";
+    //    block += "<div class='name'>" + data.name + "</div>";
+    //    block += "<div>" + data.release_date + "</div>";
+    //    block += "<div class='popularity'>" + data.popularity + "</div>";
+    //    for(i = 0; i < data.tracks.items.length; i++){
+    //       blockTrack = "<div class='track'>" + data.tracks.items[i].track_number + " " + data.tracks.items[i].name + "</div>";$(".album").append(blockTrack);
+    //    }
+    //    block += "</div>";
+    //    $(".album").prepend(block);
+    //}
+
 
 
 };
