@@ -7,6 +7,7 @@ var PATH = {
     ],
     css_vendor: [
         './node_modules/bootstrap/dist/css/bootstrap.min.css'
+        //'./src/font-awesome-4.7.0/css/font-awesome.css'
     ],
     DIST: './dist'
 };

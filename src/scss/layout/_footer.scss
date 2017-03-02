@@ -1,0 +1,51 @@
+footer {
+    padding: 30px 0;
+    background-color: #000000;
+    h4 {
+        color: $color-grey;
+    }
+}
+
+.footer-list {
+    padding: 0;
+    list-style: none;
+    line-height: 25px;
+}
+
+.footer-logo img {
+    width: 100%;
+    padding-top: 10px;
+}
+
+.social-icon {
+    background-color: $color-grey;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 20px;
+
+    i {
+        display: block;
+        color: $color-white;
+        text-align: center;
+        line-height: 40px;
+        transition: .3s;
+        &:hover{
+            opacity: 0.5;
+            transform: rotate(360deg);
+        }
+    }
+}
+
+.signs {
+    overflow: hidden;
+    padding: 20px 0;
+    font-size: 11px;
+
+    span {
+        margin: 0 10px;
+    }
+    .copy {
+        color: $color-white;
+    }
+}
