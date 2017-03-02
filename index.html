@@ -9,11 +9,32 @@
     <script type="text/javascript" src="dist/js/app.js"></script>
 </head>
 <body>
-<div class="album"></div>
-<div class="section"></div>
-<div class="search-box col-xs-4">
-    <input class="form-control" type="text" placeholder="">
-    <button id="search" class=" btn btn-inverse">Search</button>
+<div id="header">
+    <div class="container">
+        <div class="logo-box">
+            <a class="logo-link" href="index.html">
+                <img src="src/images/logo.png" alt=""/>
+            </a>
+        </div>
+    </div>
 </div>
+<main class="main-content">
+    <div class="container">
+        <div class="search-box">
+            <div class="col-xs-6 input-box">
+                <label for="search-input">Find Your Favorite Album!</label>
+                <input id="search-input" class="form-control" type="text" placeholder="">
+            </div>
+            <div class="col-xs-2 button-box">
+                <button id="search" class=" btn btn-inverse">Search</button>
+            </div>
+        </div>
+        <div class="album-section"></div>
+        <div class="album"></div>
+        <div class="section"></div>
+
+    </div>
+</main>
+
 </body>
 </html>
