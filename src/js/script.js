@@ -3,15 +3,16 @@
  */
 
 var SpotifyApp = {
-    BUTTON_SEARCH_ID: "#search",
-
 //    variables
+    BUTTON_SEARCH: null,
+    API_URL: 'https://api.spotify.com/v1/',
 
 
 //    init
     init: function () {
         //SpotifyApp.getAlbums();
-        SpotifyApp.sendValue();
+        SpotifyApp.BUTTON_SEARCH = $('#search');
+        SpotifyApp.onSend();
     },
 
 
@@ -34,53 +35,54 @@ var SpotifyApp = {
     //},
     // get first album
 
-    showSearchingData: function (inputValue) {
+    getSearchValue: function (searchValue) {
         $.ajax({
-            url: 'https://api.spotify.com/v1/search?q=' + inputValue + '&type=track,album,artist&market=US',
+            url: SpotifyApp.API_URL + 'search?q=' + searchValue + '&type=track,album,artist&market=US',
             method: 'GET',
             dataType: 'json',
             success: function (response) {
                 SpotifyApp.drawSearchData(response);
-                console.log(inputValue);
+                console.log(searchValue);
                 console.log(response);
             },
             error: function () {
-                console.log("Getting data error!")
+                console.log('Getting data error!')
             }
         });
     },
-    sendValue: function () {
-        $(SpotifyApp.BUTTON_SEARCH_ID).on("click", function (e) {
-            SpotifyApp.showSearchingData($(".form-control").val());
+    onSend: function () {
+
+        $('button#search').on('click', function (e) {
+            SpotifyApp.getSearchValue($('.form-control').val());
         });
     },
 
     //selectAlbum: function(data) {
-    //    var template = "";
+    //    var template = '';
     //    $.each(data, function(index, item){
     //        template += SpotifyApp.drawAlbums(item);
     //    });
-    //    $(".album").prepend(template);
+    //    $('.album').prepend(template);
     //},
 
     drawSearchData: function (data) {
-        var section = "";
-        var block = "";
-        for (i = 0; i < data.albums.items.length; i++ ){
-            section += "<div class='album-name'>" + data.albums.items[i].name + "</div>";
+        var section = '';
+        var block = '';
+        for (var i = 0; i < data.albums.items.length; i++) {
+            section += '<div class="album-name">' + data.albums.items[i].name + '</div>';
+            $('.section').append(section);
         }
-        for(i = 0; i < data.tracks.items.length; i++ ){
-            block += "<div class='album-track'>"+ data.tracks.items[i].name + "</div>"
+        for (var i = 0; i < data.tracks.items.length; i++) {
+            block += '<div class="album-track">' + data.tracks.items[i].name + '</div>'
         }
-        $(".section").append(section);
-        $(".section").append(block);
+        $('.section').append(block);
     }
 
     //drawAlbum function
 
     //drawAlbums: function (data) {
-    //    var block = "";
-    //    var blockTrack = "";
+    //    var block = '';
+    //    var blockTrack = '';
     //    block += "<div class='album-detail'>";
     //    block += "<div class='artist'>" + data.artists["0"].name + "</div>";
     //    //block += "<div class='img'>" + data.images["2"].url + "</div>";
@@ -94,7 +96,6 @@ var SpotifyApp = {
     //    block += "</div>";
     //    $(".album").prepend(block);
     //}
-
 
 
 };
