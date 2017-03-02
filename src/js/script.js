@@ -69,12 +69,18 @@ var SpotifyApp = {
         var section = '';
         var block = '';
         for (var i = 0; i < data.albums.items.length; i++) {
-            section += '<div class="album-name">' + data.albums.items[i].name + '</div>';
-            $('.section').append(section);
+            section += '<div class="album-detail col-xs-12">';
+            section += '<div class="match-detail col-xs-8">';
+            section += '<div class="album-artist col-xs-12"><span>Artist: </span>'+ data.albums.items[i].artists["0"].name +'</div>';
+            section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
+            section += '</div>';
+            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url +'>'+'</div>';
+            section += '</div>'
         }
-        for (var i = 0; i < data.tracks.items.length; i++) {
-            block += '<div class="album-track">' + data.tracks.items[i].name + '</div>'
-        }
+        //for (var i = 0; i < data.tracks.items.length; i++) {
+        //    block += '<div class="album-track">' + data.tracks.items[i].name + '</div>'
+        //}
+        $('.album-section').append(section);
         $('.section').append(block);
     }
 
