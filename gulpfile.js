@@ -6,9 +6,10 @@ var PATH = {
         './node_modules/bootstrap/dist/js/bootstrap.min.js'
     ],
     css_vendor: [
-        './node_modules/bootstrap/dist/css/bootstrap.min.css'
-        //'./src/font-awesome-4.7.0/css/font-awesome.css'
+        './node_modules/bootstrap/dist/css/bootstrap.min.css',
+        './node_modules/font-awesome/css/font-awesome.min.css'
     ],
+    fonts_vendor: './node_modules/font-awesome/fonts/*.{eot,svg,ttf,woff,woff2}',
     DIST: './dist'
 };
 
@@ -76,6 +77,12 @@ gulp.task('css-vendor', function() {
         .pipe(browserSync.stream());
 });
 
+gulp.task('fonts-vendor', function() {
+    return gulp.src(PATH.fonts_vendor)
+        .pipe(gulp.dest(PATH.DIST + '/fonts'))
+        .pipe(browserSync.stream());
+});
+
 // Static server
 gulp.task('serve', function () {
     browserSync.init({
@@ -100,4 +107,4 @@ gulp.task('serve', function () {
 });
 
 // Initialization
-gulp.task('default', ['styles', 'js-vendor', 'css-vendor', 'js', 'serve']);
+gulp.task('default', ['styles', 'js-vendor', 'css-vendor', 'fonts-vendor', 'js', 'serve']);
