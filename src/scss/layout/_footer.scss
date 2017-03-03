@@ -1,5 +1,5 @@
 footer {
-    padding: 30px 0;
+    padding-top: 30px;
     background-color: #000000;
     h4 {
         color: $color-grey;
@@ -12,9 +12,16 @@ footer {
     line-height: 25px;
 }
 
-.footer-logo img {
-    width: 100%;
-    padding-top: 10px;
+.footer-logo {
+    background-image: url("../../../src/images/logo-white-small.png") ;
+    background-repeat: no-repeat;
+    display: block;
+    width: 150px;
+    height: 45px;
+    img {
+        width: 100%;
+        padding-top: 10px;
+    }
 }
 
 .social-icon {
@@ -29,8 +36,8 @@ footer {
         color: $color-white;
         text-align: center;
         line-height: 40px;
-        transition: .3s;
-        &:hover{
+        transition: .6s;
+        &:hover {
             opacity: 0.5;
             transform: rotate(360deg);
         }
@@ -39,7 +46,7 @@ footer {
 
 .signs {
     overflow: hidden;
-    padding: 20px 0;
+    padding: 20px 5px;
     font-size: 11px;
 
     span {
@@ -47,5 +54,6 @@ footer {
     }
     .copy {
         color: $color-white;
+        white-space: nowrap
     }
 }
