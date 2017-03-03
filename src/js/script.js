@@ -48,11 +48,11 @@ var SpotifyApp = {
             var ID = data.albums.items[i].id;
             section += '<div class="album-detail col-xs-12">';
             section += '<div class="match-detail col-xs-8">';
-            section += '<div class="album-artist col-xs-12"><span>Artist: </span>'+ data.albums.items[i].artists["0"].name +'</div>';
+            section += '<div class="album-artist col-xs-12"><span>Artist: </span>' + data.albums.items[i].artists["0"].name + '</div>';
             section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
-            section += '<button id="more" class=" btn btn-inverse" data-id="'+ ID +'" onclick="SpotifyApp.moreDetails(event.target)">More details</button>';
+            section += '<button id="more" class=" btn btn-inverse" data-id="' + ID + '" onclick="SpotifyApp.moreDetails(event.target)">More details</button>';
             section += '</div>';
-            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url +'>'+'</div>';
+            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url + '>' + '</div>';
             section += '</div>'
         }
         $('.album-section').append(section);
@@ -61,13 +61,14 @@ var SpotifyApp = {
     moreDetails: function (e) {
         var albumId = $(e).attr("data-id");
         $.ajax({
-            url: SpotifyApp.API_URL + 'albums/' + albumId +'/tracks',
+            url: SpotifyApp.API_URL + 'albums/' + albumId + '/tracks',
             method: 'GET',
             dataType: 'json',
             success: function (response) {
                 console.log(response);
                 console.log(e);
-                SpotifyApp.showTracks(response ,e);
+                $(e).attr("disabled", "disabled");
+                SpotifyApp.showTracks(response, e);
             },
             error: function () {
                 console.log("Getting data error!");
@@ -75,13 +76,21 @@ var SpotifyApp = {
         });
     },
 
-    showTracks: function(data, e) {
+    showTracks: function (data, e) {
         var track = "";
+        track += '<table class="table table-striped">';
+        track += '<tbody>';
         for (var i = 0; i < data.items.length; i++) {
-            track += '<div class="album-track">' + '<span class="track-number">' + data.items[i].track_number + '</span>' + data.items[i].name + '</div>'
+            track += '<tr><td><div class="album-track">'
+            + '<span class="track-number">' +
+            data.items[i].track_number +
+            '</span>' + data.items[i].name + '</div></td></tr>'
         }
+        track += '</tbody></table>';
+
         $(e).parent(".match-detail").append(track);
-        $("#more").attr("disabled", "disabled");
+
+        //  @todo dopoprawki!
     }
 
 
