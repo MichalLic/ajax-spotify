@@ -1,6 +1,7 @@
 footer {
     padding-top: 30px;
     background-color: #000000;
+    opacity: 0.92;
     h4 {
         color: $color-grey;
     }
@@ -13,11 +14,17 @@ footer {
 }
 
 .footer-logo {
-    background-image: url("../../../src/images/logo-white-small.png") ;
-    background-repeat: no-repeat;
-    display: block;
-    width: 150px;
-    height: 45px;
+    a {
+        background-image: url("../../../src/images/logo-white-small.png");
+        background-repeat: no-repeat;
+        display: block;
+        width: 150px;
+        height: 45px;
+        transition: 0.3s;
+        &:hover{
+            opacity: 0.6;
+        }
+    }
     img {
         width: 100%;
         padding-top: 10px;
@@ -25,7 +32,7 @@ footer {
 }
 
 .social-icon {
-    background-color: $color-grey;
+    background-color: #676973;
     width: 40px;
     height: 40px;
     margin: 0 auto;
@@ -39,13 +46,13 @@ footer {
         transition: .6s;
         &:hover {
             opacity: 0.5;
+            text-decoration: none;
             transform: rotate(360deg);
         }
     }
 }
 
 .signs {
-    overflow: hidden;
     padding: 20px 5px;
     font-size: 11px;
 

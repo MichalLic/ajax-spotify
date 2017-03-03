@@ -1,13 +1,30 @@
+.main-content{
+    background-color: $color-grey;
+}
 .search-box {
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     .button-box {
         display: flex;
         align-items: flex-end;
+        justify-content: center;
     }
 }
-
-        .album-name {
-            margin: 5px 0;
+.album-section{
+    overflow: hidden;
+    background-color: $color-darkgrey;
+    .album-detail{
+        padding: 10px 0;
+    }
+}
+.album-name {
+    margin: 5px 0;
+}
+.album-img{
+    img{
+        display: block;
+        margin: 0 auto;
+    }
 }
 

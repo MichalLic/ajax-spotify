@@ -1,6 +1,10 @@
 #header{
-    background-color: $color-primary;
+    background-color: $colot-lightgrey;
+    padding: 15px 0;
+
 }
 .logo-box img{
-    max-width: 100%;
+    max-width: 40%;
+    display: block;
+    margin: 0 auto;
 }
