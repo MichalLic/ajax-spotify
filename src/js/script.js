@@ -18,22 +18,6 @@ var SpotifyApp = {
 
 //    function
 
-    //getAlbums: function () {
-    //    $.ajax({
-    //        url: 'https://api.spotify.com/v1/albums/382ObEPsp2rxGrnsizN5TX',
-    //        method: 'GET',
-    //        dataType: 'json',
-    //        success: function (response) {
-    //            SpotifyApp.drawAlbums(response);
-    //            console.log(response);
-    //        },
-    //        error: function () {
-    //            console.log("Getting data error!")
-    //        }
-    //    });
-    //    // @todo dupa
-    //},
-    // get first album
 
     getSearchValue: function (searchValue) {
         $.ajax({
@@ -57,6 +41,50 @@ var SpotifyApp = {
         });
     },
 
+    drawSearchData: function (data) {
+        var section = '';
+
+        for (var i = 0; i < data.albums.items.length; i++) {
+            var ID = data.albums.items[i].id;
+            section += '<div class="album-detail col-xs-12">';
+            section += '<div class="match-detail col-xs-8">';
+            section += '<div class="album-artist col-xs-12"><span>Artist: </span>'+ data.albums.items[i].artists["0"].name +'</div>';
+            section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
+            section += '<button id="more" class=" btn btn-inverse" data-id="'+ ID +'" onclick="SpotifyApp.moreDetails(event.target)">More details</button>';
+            section += '</div>';
+            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url +'>'+'</div>';
+            section += '</div>'
+        }
+        $('.album-section').append(section);
+    },
+
+    moreDetails: function (e) {
+        var albumId = $(e).attr("data-id");
+        $.ajax({
+            url: SpotifyApp.API_URL + 'albums/' + albumId +'/tracks',
+            method: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                console.log(response);
+                console.log(e);
+                SpotifyApp.showTracks(response ,e);
+            },
+            error: function () {
+                console.log("Getting data error!");
+            }
+        });
+    },
+
+    showTracks: function(data, e) {
+        var track = "";
+        for (var i = 0; i < data.items.length; i++) {
+            track += '<div class="album-track">' + '<span class="track-number">' + data.items[i].track_number + '</span>' + data.items[i].name + '</div>'
+        }
+        $(e).parent(".match-detail").append(track);
+        $("#more").attr("disabled", "disabled");
+    }
+
+
     //selectAlbum: function(data) {
     //    var template = '';
     //    $.each(data, function(index, item){
@@ -64,25 +92,6 @@ var SpotifyApp = {
     //    });
     //    $('.album').prepend(template);
     //},
-
-    drawSearchData: function (data) {
-        var section = '';
-        var block = '';
-        for (var i = 0; i < data.albums.items.length; i++) {
-            section += '<div class="album-detail col-xs-12">';
-            section += '<div class="match-detail col-xs-8">';
-            section += '<div class="album-artist col-xs-12"><span>Artist: </span>'+ data.albums.items[i].artists["0"].name +'</div>';
-            section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
-            section += '</div>';
-            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url +'>'+'</div>';
-            section += '</div>'
-        }
-        //for (var i = 0; i < data.tracks.items.length; i++) {
-        //    block += '<div class="album-track">' + data.tracks.items[i].name + '</div>'
-        //}
-        $('.album-section').append(section);
-        $('.section').append(block);
-    }
 
     //drawAlbum function
 
@@ -103,7 +112,24 @@ var SpotifyApp = {
     //    $(".album").prepend(block);
     //}
 
+    //getAlbumfunction
 
+    //getAlbums: function () {
+    //    $.ajax({
+    //        url: 'https://api.spotify.com/v1/albums/382ObEPsp2rxGrnsizN5TX',
+    //        method: 'GET',
+    //        dataType: 'json',
+    //        success: function (response) {
+    //            SpotifyApp.drawAlbums(response);
+    //            console.log(response);
+    //        },
+    //        error: function () {
+    //            console.log("Getting data error!")
+    //        }
+    //    });
+    //    // @todo dupa
+    //},
+    // get first album
 };
 
 $(document).ready(function () {

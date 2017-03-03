@@ -28,3 +28,13 @@
     }
 }
 
+span.track-number{
+    background-color: $color-green-primary;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 15px;
+    margin: 5px 3px 5px 0;
+}
