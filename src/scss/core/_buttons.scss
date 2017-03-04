@@ -1,0 +1,17 @@
+#search,
+#more
+{
+    background-color: $color-green-primary;
+    color: $color-darkgrey;
+    transition: 0.3s;
+    outline: none;
+    &:hover{
+        background-color: $color-green-secondary;
+        color: $color-white;
+    }
+}
+
+#more{
+    margin: 10px 0;
+}
+
