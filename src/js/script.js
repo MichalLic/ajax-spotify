@@ -78,6 +78,7 @@ var SpotifyApp = {
             dataType: 'json',
             success: function (response) {
                 SpotifyApp.showTracks(response, btn);
+                $(btn).next(".slide-content").slideDown('slow');
                 $(btn).addClass('loaded');
                 $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             },
@@ -97,9 +98,9 @@ var SpotifyApp = {
         });
     },
 
-    showTracks: function (data, e) {
+    showTracks: function (data, btn) {
         var track = "";
-        track += '<div class="slide-content">';
+        track += '<div class="slide-content" style="display: none">';
         track += '<table class="table table-striped">';
         track += '<tbody>';
         for (var i = 0; i < data.items.length; i++) {
@@ -110,10 +111,7 @@ var SpotifyApp = {
         }
         track += '</tbody></table>';
         track += '</div>';
-
-        $(e).parent(".match-detail").append(track);
-
-        //  @todo dopoprawki!
+        $(btn).parent(".match-detail").append(track);
     }
 
 
