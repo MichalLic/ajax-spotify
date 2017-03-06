@@ -9,6 +9,10 @@
         display: flex;
         align-items: flex-end;
         justify-content: center;
+
+    }
+    label{
+        white-space: nowrap;
     }
 }
 .album-section{
@@ -37,4 +41,15 @@ span.track-number{
     line-height: 30px;
     border-radius: 15px;
     margin: 5px 3px 5px 0;
+}
+
+.table-striped>tbody>tr:nth-of-type(even){
+    background-color: $color-grey;
+}
+
+@media (max-width: 500px){
+    .table tr {
+        display: flex;
+        flex-direction: column;
+    }
 }
