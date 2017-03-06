@@ -97,6 +97,7 @@ var SpotifyApp = {
     },
 
     showTracks: function (data, btn) {
+        console.log(data);
         var track = "";
         track += '<div class="slide-content" style="display: none">';
         track += '<table class="table table-striped">';
@@ -105,13 +106,19 @@ var SpotifyApp = {
             track += '<tr><td><div class="album-track">'
             + '<span class="track-number">' +
             data.items[i].track_number +
-            '</span>' + data.items[i].name + '</div></td></tr>'
+            '</span>' + data.items[i].name + '</div></td>';
+            track += '<td>' + SpotifyApp.getIframe(data.items[i].uri) + '</td>';
+            track += '</tr>';
         }
         track += '</tbody></table>';
         track += '</div>';
+        
         $(btn).parent('.match-detail').append(track);
-    }
+    },
 
+    getIframe: function (uri) {
+        return '<iframe src="https://embed.spotify.com/?uri=' + uri + '&theme=white" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>';
+    }
 
     //selectAlbum: function(data) {
     //    var template = '';

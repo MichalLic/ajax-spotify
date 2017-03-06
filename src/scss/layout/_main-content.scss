@@ -38,3 +38,7 @@ span.track-number{
     border-radius: 15px;
     margin: 5px 3px 5px 0;
 }
+
+.table-striped>tbody>tr:nth-of-type(even){
+    background-color: $color-grey;
+}
