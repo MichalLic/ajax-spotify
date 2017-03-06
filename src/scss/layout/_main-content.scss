@@ -42,3 +42,10 @@ span.track-number{
 .table-striped>tbody>tr:nth-of-type(even){
     background-color: $color-grey;
 }
+
+@media (max-width: 500px){
+    .table tr {
+        display: flex;
+        flex-direction: column;
+    }
+}

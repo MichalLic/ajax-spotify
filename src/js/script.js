@@ -49,12 +49,13 @@ var SpotifyApp = {
         for (var i = 0; i < data.albums.items.length; i++) {
             var ID = data.albums.items[i].id;
             section += '<div class="album-detail col-xs-12">';
-            section += '<div class="match-detail col-xs-8">';
+            section += '<div class="match-detail col-xs-9">';
             section += '<div class="album-artist col-xs-12"><span>Artist: </span>' + data.albums.items[i].artists["0"].name + '</div>';
             section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
             section += '<button id="more" class=" btn btn-inverse" data-id="' + ID + '" onclick="SpotifyApp.moreDetails(event.target)">Show tracks</button>';
             section += '</div>';
-            section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url + '>' + '</div>';
+            section += '<div class="album-img col-xs-3"><img src=' + data.albums.items[i].images[2].url + '>' + '</div>';
+            section += '<div class="tracks-detail col-xs-12"></div>';
             section += '</div>'
         }
         $('.album-section').append(section);
@@ -76,7 +77,7 @@ var SpotifyApp = {
             dataType: 'json',
             success: function (response) {
                 SpotifyApp.showTracks(response, btn);
-                $(btn).next(SpotifyApp.SLIDE_CONTENT_CL).slideDown('slow');
+                $(btn).closest('.album-detail').find(SpotifyApp.SLIDE_CONTENT_CL).slideDown('slow');
                 $(btn).addClass('loaded');
                 $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             },
@@ -87,7 +88,7 @@ var SpotifyApp = {
     },
 
     slideContent: function (btn) {
-        $(btn).next(SpotifyApp.SLIDE_CONTENT_CL).slideToggle('slow', function () {
+        $(btn).closest('.album-detail').find(SpotifyApp.SLIDE_CONTENT_CL).slideToggle('slow', function () {
             if ($(btn).text() == SpotifyApp.SHOW_TRACKS_LABEL) {
                 $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             } else {
@@ -112,12 +113,13 @@ var SpotifyApp = {
         }
         track += '</tbody></table>';
         track += '</div>';
-        
-        $(btn).parent('.match-detail').append(track);
+
+        $(btn).closest('.album-detail').find('.tracks-detail').append(track);
+        console.log(track);
     },
 
     getIframe: function (uri) {
-        return '<iframe src="https://embed.spotify.com/?uri=' + uri + '&theme=white" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>';
+        return '<iframe src="https://embed.spotify.com/?uri=' + uri + '&theme=black" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>';
     }
 
     //selectAlbum: function(data) {
