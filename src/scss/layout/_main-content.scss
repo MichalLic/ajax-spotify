@@ -9,6 +9,10 @@
         display: flex;
         align-items: flex-end;
         justify-content: center;
+
+    }
+    label{
+        white-space: nowrap;
     }
 }
 .album-section{

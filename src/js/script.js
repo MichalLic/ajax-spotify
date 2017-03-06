@@ -12,10 +12,8 @@ var SpotifyApp = {
 
 //    init
     init: function () {
-        //SpotifyApp.getAlbums();
         SpotifyApp.BUTTON_SEARCH = $('#search');
         SpotifyApp.onSend();
-
     },
 
 
@@ -39,6 +37,7 @@ var SpotifyApp = {
 
     onSend: function () {
         $('button#search').on('click', function (e) {
+            $('.album-detail').remove();
             SpotifyApp.getSearchResults($('.form-control').val());
         });
     },
@@ -98,7 +97,6 @@ var SpotifyApp = {
     },
 
     showTracks: function (data, btn) {
-        console.log(data);
         var track = "";
         track += '<div class="slide-content" style="display: none">';
         track += '<table class="table table-striped">';
@@ -115,7 +113,6 @@ var SpotifyApp = {
         track += '</div>';
 
         $(btn).closest('.album-detail').find('.tracks-detail').append(track);
-        console.log(track);
     },
 
     getIframe: function (uri) {
