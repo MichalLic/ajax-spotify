@@ -6,12 +6,16 @@ var SpotifyApp = {
 //    variables
     BUTTON_SEARCH: null,
     API_URL: 'https://api.spotify.com/v1/',
+    SHOW_TRACKS_LABEL: 'Show tracks',
+    HIDE_TRACKS_LABEL: 'Hide tracks',
+    //ALBUM_ID: null,
 
 
 //    init
     init: function () {
         //SpotifyApp.getAlbums();
         SpotifyApp.BUTTON_SEARCH = $('#search');
+        //SpotifyApp.ALBUM_ID = $("#more").attr('data-id');
         SpotifyApp.onSend();
     },
 
@@ -19,7 +23,7 @@ var SpotifyApp = {
 //    function
 
 
-    getSearchValue: function (searchValue) {
+    getSearchResults: function (searchValue) {
         $.ajax({
             url: SpotifyApp.API_URL + 'search?q=' + searchValue + '&type=track,album,artist&market=US',
             method: 'GET',
@@ -37,7 +41,7 @@ var SpotifyApp = {
     onSend: function () {
 
         $('button#search').on('click', function (e) {
-            SpotifyApp.getSearchValue($('.form-control').val());
+            SpotifyApp.getSearchResults($('.form-control').val());
         });
     },
 
@@ -50,7 +54,7 @@ var SpotifyApp = {
             section += '<div class="match-detail col-xs-8">';
             section += '<div class="album-artist col-xs-12"><span>Artist: </span>' + data.albums.items[i].artists["0"].name + '</div>';
             section += '<div class="album-name col-xs-12"><span>Title album: </span>' + data.albums.items[i].name + '</div>';
-            section += '<button id="more" class=" btn btn-inverse" data-id="' + ID + '" onclick="SpotifyApp.moreDetails(event.target)">More details</button>';
+            section += '<button id="more" class=" btn btn-inverse" data-id="' + ID + '" onclick="SpotifyApp.moreDetails(event.target)">Show tracks</button>';
             section += '</div>';
             section += '<div class="album-img col-xs-4"><img src=' + data.albums.items[i].images[2].url + '>' + '</div>';
             section += '</div>'
@@ -58,17 +62,24 @@ var SpotifyApp = {
         $('.album-section').append(section);
     },
 
-    moreDetails: function (e) {
-        var albumId = $(e).attr("data-id");
+    moreDetails: function (btn) {
+        if (!$(btn).hasClass('loaded')){
+            SpotifyApp.getTracks(btn);
+        } else {
+            SpotifyApp.slideContent(btn);
+        }
+    },
+
+    getTracks: function (btn) {
+        var albumId = $(btn).attr('data-id');
         $.ajax({
             url: SpotifyApp.API_URL + 'albums/' + albumId + '/tracks',
             method: 'GET',
             dataType: 'json',
             success: function (response) {
-                console.log(response);
-                console.log(e);
-                $(e).attr("disabled", "disabled");
-                SpotifyApp.showTracks(response, e);
+                SpotifyApp.showTracks(response, btn);
+                $(btn).addClass('loaded');
+                $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             },
             error: function () {
                 console.log("Getting data error!");
@@ -76,8 +87,19 @@ var SpotifyApp = {
         });
     },
 
+    slideContent: function (btn) {
+        $(btn).next('.slide-content').slideToggle('slow', function () {
+            if($(btn).text() == SpotifyApp.SHOW_TRACKS_LABEL ){
+                $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
+            } else {
+                $(btn).text(SpotifyApp.SHOW_TRACKS_LABEL);
+            }
+        });
+    },
+
     showTracks: function (data, e) {
         var track = "";
+        track += '<div class="slide-content">';
         track += '<table class="table table-striped">';
         track += '<tbody>';
         for (var i = 0; i < data.items.length; i++) {
@@ -87,6 +109,7 @@ var SpotifyApp = {
             '</span>' + data.items[i].name + '</div></td></tr>'
         }
         track += '</tbody></table>';
+        track += '</div>';
 
         $(e).parent(".match-detail").append(track);
 
