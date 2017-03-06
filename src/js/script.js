@@ -8,20 +8,18 @@ var SpotifyApp = {
     API_URL: 'https://api.spotify.com/v1/',
     SHOW_TRACKS_LABEL: 'Show tracks',
     HIDE_TRACKS_LABEL: 'Hide tracks',
-    //ALBUM_ID: null,
-
+    SLIDE_CONTENT_CL: '.slide-content',
 
 //    init
     init: function () {
         //SpotifyApp.getAlbums();
         SpotifyApp.BUTTON_SEARCH = $('#search');
-        //SpotifyApp.ALBUM_ID = $("#more").attr('data-id');
         SpotifyApp.onSend();
+
     },
 
 
 //    function
-
 
     getSearchResults: function (searchValue) {
         $.ajax({
@@ -38,8 +36,8 @@ var SpotifyApp = {
             }
         });
     },
-    onSend: function () {
 
+    onSend: function () {
         $('button#search').on('click', function (e) {
             SpotifyApp.getSearchResults($('.form-control').val());
         });
@@ -63,7 +61,7 @@ var SpotifyApp = {
     },
 
     moreDetails: function (btn) {
-        if (!$(btn).hasClass('loaded')){
+        if (!$(btn).hasClass('loaded')) {
             SpotifyApp.getTracks(btn);
         } else {
             SpotifyApp.slideContent(btn);
@@ -78,19 +76,19 @@ var SpotifyApp = {
             dataType: 'json',
             success: function (response) {
                 SpotifyApp.showTracks(response, btn);
-                $(btn).next(".slide-content").slideDown('slow');
+                $(btn).next(SpotifyApp.SLIDE_CONTENT_CL).slideDown('slow');
                 $(btn).addClass('loaded');
                 $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             },
             error: function () {
-                console.log("Getting data error!");
+                console.log('Getting data error!');
             }
         });
     },
 
     slideContent: function (btn) {
-        $(btn).next('.slide-content').slideToggle('slow', function () {
-            if($(btn).text() == SpotifyApp.SHOW_TRACKS_LABEL ){
+        $(btn).next(SpotifyApp.SLIDE_CONTENT_CL).slideToggle('slow', function () {
+            if ($(btn).text() == SpotifyApp.SHOW_TRACKS_LABEL) {
                 $(btn).text(SpotifyApp.HIDE_TRACKS_LABEL);
             } else {
                 $(btn).text(SpotifyApp.SHOW_TRACKS_LABEL);
@@ -111,7 +109,7 @@ var SpotifyApp = {
         }
         track += '</tbody></table>';
         track += '</div>';
-        $(btn).parent(".match-detail").append(track);
+        $(btn).parent('.match-detail').append(track);
     }
 
 
