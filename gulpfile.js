@@ -10,7 +10,8 @@ var PATH = {
         './node_modules/font-awesome/css/font-awesome.min.css'
     ],
     fonts_vendor: './node_modules/font-awesome/fonts/*.{eot,svg,ttf,woff,woff2}',
-    DIST: './dist'
+    DIST: './dist',
+    static: './src/images/*'
 };
 
 //
@@ -70,18 +71,24 @@ gulp.task('js-vendor', function () {
         .pipe(browserSync.stream());
 });
 
-gulp.task('css-vendor', function() {
+gulp.task('css-vendor', function () {
     return gulp.src(PATH.css_vendor)
         .pipe($.concat('vendor.css'))
         .pipe(gulp.dest(PATH.DIST + '/css'))
         .pipe(browserSync.stream());
 });
 
-gulp.task('fonts-vendor', function() {
+gulp.task('fonts-vendor', function () {
     return gulp.src(PATH.fonts_vendor)
         .pipe(gulp.dest(PATH.DIST + '/fonts'))
         .pipe(browserSync.stream());
 });
+
+gulp.task('copy', function () {
+    return gulp.src(PATH.static, {base: 'src'})
+        .pipe(gulp.dest(PATH.DIST));
+});
+
 
 // Static server
 gulp.task('serve', function () {
@@ -107,4 +114,4 @@ gulp.task('serve', function () {
 });
 
 // Initialization
-gulp.task('default', ['styles', 'js-vendor', 'css-vendor', 'fonts-vendor', 'js', 'serve']);
+gulp.task('default', ['styles', 'copy', 'js-vendor', 'css-vendor', 'fonts-vendor', 'js', 'serve']);

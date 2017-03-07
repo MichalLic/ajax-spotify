@@ -25,6 +25,9 @@ var SpotifyApp = {
             method: 'GET',
             dataType: 'json',
             success: function (response) {
+                // clear list
+                $('.album-detail').remove();
+                // display results
                 SpotifyApp.drawSearchData(response);
                 console.log(searchValue);
                 console.log(response);
@@ -37,7 +40,6 @@ var SpotifyApp = {
 
     onSend: function () {
         $('button#search').on('click', function (e) {
-            $('.album-detail').remove();
             SpotifyApp.getSearchResults($('.form-control').val());
         });
     },
@@ -117,7 +119,8 @@ var SpotifyApp = {
 
     getIframe: function (uri) {
         return '<iframe src="https://embed.spotify.com/?uri=' + uri + '&theme=black" width="300" height="80" frameborder="0" allowtransparency="true"></iframe>';
-    }
+    },
+
 
     //selectAlbum: function(data) {
     //    var template = '';
